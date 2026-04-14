@@ -98,7 +98,7 @@ export default function NotificationsPanel({ open, onClose }: NotificationsPanel
             </div>
           ) : (
             notifications.map((n) => {
-              const meta = typeIcons[n.type] || typeIcons.system
+              const meta = typeIcons[n.type] ?? typeIcons['system']!
               return (
                 <div
                   key={n.id}

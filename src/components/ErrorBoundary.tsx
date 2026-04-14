@@ -1,7 +1,7 @@
 import { Component, ErrorInfo, ReactNode } from 'react';
 
 interface ErrorFallbackProps {
-  error?: Error;
+  error?: Error | null;
   resetError: () => void;
 }
 
@@ -44,11 +44,11 @@ interface Props {
 
 interface State {
   hasError: boolean;
-  error?: Error;
+  error: Error | null;
 }
 
 export class ErrorBoundary extends Component<Props, State> {
-  public state: State = { hasError: false };
+  public state: State = { hasError: false, error: null };
 
   public static getDerivedStateFromError(error: Error): State {
     return { hasError: true, error };
@@ -70,7 +70,7 @@ export class ErrorBoundary extends Component<Props, State> {
       prevProps.resetKeys &&
       prevProps.resetKeys.some((key, index) => key !== this.props.resetKeys?.[index])
     ) {
-      this.setState({ hasError: false, error: undefined });
+      this.setState({ hasError: false, error: null });
     }
   }
 
@@ -79,7 +79,7 @@ export class ErrorBoundary extends Component<Props, State> {
       return this.props.fallback || (
         <ErrorFallback
           error={this.state.error}
-          resetError={() => this.setState({ hasError: false, error: undefined })}
+          resetError={() => this.setState({ hasError: false, error: null })}
         />
       );
     }
