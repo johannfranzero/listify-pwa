@@ -174,8 +174,8 @@ export const usePlannerStore = create<PlannerStore>((set, get) => ({
     const today = new Date()
     const cutoff = new Date(today)
     cutoff.setDate(cutoff.getDate() + days)
-    const todayStr = today.toISOString().split('T')[0]
-    const cutoffStr = cutoff.toISOString().split('T')[0]
+    const todayStr = today.toISOString().split('T')[0]!
+    const cutoffStr = cutoff.toISOString().split('T')[0]!
 
     return tasks
       .filter(

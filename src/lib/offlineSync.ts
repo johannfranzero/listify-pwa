@@ -139,10 +139,10 @@ export async function replayPendingMutations(): Promise<{ replayed: number; fail
 
       switch (mutation.operation) {
         case 'INSERT':
-          query = client.from(mutation.table).insert(mutation.data)
+          query = client.from(mutation.table as any).insert(mutation.data as any)
           break
         case 'UPDATE':
-          query = client.from(mutation.table).update(mutation.data)
+          query = client.from(mutation.table as any).update(mutation.data as any)
           if (mutation.filters) {
             for (const [key, value] of Object.entries(mutation.filters)) {
               query = query.eq(key, value as string)
@@ -150,7 +150,7 @@ export async function replayPendingMutations(): Promise<{ replayed: number; fail
           }
           break
         case 'DELETE':
-          query = client.from(mutation.table).delete()
+          query = client.from(mutation.table as any).delete()
           if (mutation.filters) {
             for (const [key, value] of Object.entries(mutation.filters)) {
               query = query.eq(key, value as string)
